@@ -24,8 +24,7 @@ def plot_emg_and_glove(emg, glove, restimulus, repetition, subject, exercise, ti
     # Перчатка
     fig2, (ax3, ax4) = plt.subplots(2, 1, figsize=(15, 8), sharex=True)
     for i in range(glove.shape[1]):
-        if i != 24:
-            ax3.plot(time, glove[:, i], label=f'Glove {i+1}')
+        ax3.plot(time, glove[:, i], label=f'Glove {i+1}')
     ax3.set_ylabel('Сигнал перчатки')
     ax3.set_title(f'Субъект {subject}, Упражнение {exercise}')
     ax3.legend(loc='upper right', ncol=4)

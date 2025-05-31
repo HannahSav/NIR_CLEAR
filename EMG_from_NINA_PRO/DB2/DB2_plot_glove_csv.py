@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import json
 
 def plot_glove_from_csv(file_path):
     df = pd.read_csv(file_path, header=None)
@@ -17,7 +18,22 @@ def plot_glove_from_csv(file_path):
     plt.show()
 
 if __name__ == "__main__":
+    # Путь к текущему скрипту
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Путь к config.json (в той же папке)
+    config_path = os.path.join(script_dir, 'config.json')
+
+    # Читаем конфигурацию
+    with open(config_path, 'r') as f:
+        config = json.load(f)
+
+    subject = config["subject"]
+    exercise = config["exercise"]
+    stimulus = config["stimulus"]
+    repetition = config["repetition"]
+
     # Задай путь к файлу, который хочешь отобразить
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(base_dir, 'cutted_data' ,'glove_segments', 'glove_s1_e1_stim2_rep1.csv')
+    file_path = os.path.join(base_dir, 'cutted_data' ,'glove_segments', f'glove_s{subject}_e{exercise}_stim{stimulus}_rep{repetition}.csv')
     plot_glove_from_csv(file_path)

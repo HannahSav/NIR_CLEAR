@@ -2,6 +2,7 @@ import os
 import scipy.io
 import numpy as np
 import pandas as pd
+import json
 
 def process_and_save_segments(mat_file_path, emg_out_dir, glove_out_dir):
     data = scipy.io.loadmat(mat_file_path)
@@ -37,8 +38,18 @@ def process_and_save_segments(mat_file_path, emg_out_dir, glove_out_dir):
 if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
+    
+    # Путь к config.json (в той же папке)
+    config_path = os.path.join(script_dir, 'config.json')
+    # Читаем конфигурацию
+    with open(config_path, 'r') as f:
+        config = json.load(f)
+
+    subject = config["subject"]
+    exercise = config["exercise"]
+
     # Путь к файлу и папки
-    mat_file = os.path.join(script_dir, 'raw_data', 'S1_E1_A1.mat')
+    mat_file = os.path.join(script_dir, 'raw_data', f'S{subject}_E{exercise}_A1.mat')
     emg_dir = os.path.join(script_dir, 'cutted_data', 'emg_segments')
     glove_dir = os.path.join(script_dir, 'cutted_data', 'glove_segments')
     os.makedirs(emg_dir, exist_ok=True)
